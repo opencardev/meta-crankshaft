@@ -35,8 +35,8 @@ DISABLE_OVERSCAN = "1"
 # ENABLE_UART = "1"
 SERIAL_CONSOLES = ""
 
-# default to 5.4
-PREFERRED_VERSION_linux-raspberrypi = "5.4.%"
+# default to 5.10
+PREFERRED_VERSION_linux-raspberrypi = "5.10.%"
 # PREFERRED_VERSION_linux-raspberrypi = "4.19.%"
 
 # DL_DIR = "/src/oe"
