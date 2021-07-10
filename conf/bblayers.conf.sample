@@ -17,10 +17,7 @@ BBLAYERS ?= " \
   ${HOME}/yocto/poky-hardknott/meta-openembedded/meta-gnome \
   ${HOME}/yocto/poky-hardknott/meta-virtualization \
   ${HOME}/yocto/poky-hardknott/meta-qt5 \
-  ${HOME}/yocto/poky-hardknott/meta-qt5-extra \
   ${HOME}/yocto/poky-hardknott/meta-raspberrypi \
   ${HOME}/yocto/poky-hardknott/meta-security \
   ${HOME}/yocto/poky-hardknott/meta-opencardev \
-  ${HOME}/yocto/poky-hardknott/meta-jumpnow \
-  ${HOME}/yocto/poky-hardknott/meta-rpi64 \
 "
