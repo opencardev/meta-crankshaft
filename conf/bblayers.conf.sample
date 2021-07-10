@@ -20,7 +20,7 @@ BBLAYERS ?= " \
   ${HOME}/yocto/poky-dunfell/meta-qt5-extra \
   ${HOME}/yocto/poky-dunfell/meta-raspberrypi \
   ${HOME}/yocto/poky-dunfell/meta-security \
-  ${HOME}/yocto/poky-dunfell/meta-crankshaft \
+  ${HOME}/yocto/poky-dunfell/meta-opencardev \
   ${HOME}/yocto/poky-dunfell/meta-jumpnow \
   ${HOME}/yocto/poky-dunfell/meta-rpi64 \
 "
