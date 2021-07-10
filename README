@@ -1,0 +1,40 @@
+This README file contains information on the contents of the meta-crankshaft layer.
+
+Please see the corresponding sections below for details.
+
+Dependencies
+============
+
+  URI: git://git.openembedded.org/meta-openembedded
+  branch: dunfell
+
+  URI: git://git.yoctoproject.org/meta-virtualization
+  branch: dunfell
+
+  URI: git://github.com/meta-qt5
+  branch: dunfell
+
+Patches
+=======
+
+Please submit any patches against the meta-crankshaft layer to the xxxx mailing list (xxxx@zzzz.org)
+and cc: the maintainer:
+
+Maintainer: XXX YYYYYY <xxx.yyyyyy@zzzzz.com>
+
+Table of Contents
+=================
+
+  I. Adding the meta-crankshaft layer to your build
+ II. Misc
+
+
+I. Adding the meta-crankshaft layer to your build
+=================================================
+
+Run 'bitbake-layers add-layer meta-crankshaft'
+
+II. Misc
+========
+
+--- replace with specific information about the meta-crankshaft layer ---

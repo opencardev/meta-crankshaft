@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+DHCPCD=/usr/sbin/dhcpcd
+INTERFACES=/etc/network/interfaces
+
+if grep -q -E "^[[:space:]]*iface[[:space:]]*.*[[:space:]]*inet[[:space:]]*(dhcp|static)" \
+		$INTERFACES; then
+	echo "Not running dhcpcd because $INTERFACES"
+	echo "defines some interfaces that will use a"
+	echo "DHCP client or static address"
+	exit 6
+fi
+
+exec $DHCPCD $@
