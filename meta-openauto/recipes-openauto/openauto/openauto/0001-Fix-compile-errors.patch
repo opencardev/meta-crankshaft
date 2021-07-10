@@ -1,0 +1,59 @@
+From e3155297c81136863988474681ef4157b5e936bb Mon Sep 17 00:00:00 2001
+From: Adrian Pop <pop.adrian61@gmail.com>
+Date: Wed, 10 Feb 2021 19:48:28 +0200
+Subject: [PATCH] Fix compile errors.
+
+---
+ CMakeLists.txt                        | 9 ++++++---
+ src/autoapp/Service/SensorService.cpp | 3 ++-
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 85a64be..5a960cc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -9,9 +9,6 @@ set(resources_directory ${base_directory}/assets)
+ set(sources_directory ${base_directory}/src)
+ set(include_directory ${base_directory}/include)
+ 
+-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${base_directory}/lib)
+-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${base_directory}/lib)
+-
+ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${base_directory}/bin)
+ set(EXECUTABLE_OUTPUT_PATH ${base_directory}/bin)
+ 
+@@ -77,6 +74,9 @@ file(GLOB_RECURSE autoapp_source_files ${autoapp_sources_directory}/*.ui ${autoa
+ 
+ add_executable(autoapp ${autoapp_source_files})
+ 
++set(AASDK_PROTO_LIBRARIES libaasdk_proto.so)
++set(AASDK_LIBRARIES libaasdk.so)
++
+ target_link_libraries(autoapp libusb
+                         ${Boost_LIBRARIES}
+                         ${Qt5Multimedia_LIBRARIES}
+@@ -107,3 +107,6 @@ target_link_libraries(btservice
+                         ${Qt5MultimediaWidgets_LIBRARIES}
+                         ${PROTOBUF_LIBRARIES}
+                         ${AASDK_PROTO_LIBRARIES})
++
++install(PROGRAMS ${base_directory}/bin/autoapp DESTINATION bin)
++install(PROGRAMS ${base_directory}/bin/btservice DESTINATION bin)
+\ No newline at end of file
+diff --git a/src/autoapp/Service/SensorService.cpp b/src/autoapp/Service/SensorService.cpp
+index 851744e..327cd36 100644
+--- a/src/autoapp/Service/SensorService.cpp
++++ b/src/autoapp/Service/SensorService.cpp
+@@ -226,10 +226,11 @@ void SensorService::sensorPolling()
+                 this->previous = this->isNight;
+                 this->sendNightData();
+             }
++            char msg[10];
+ 
+             if ((this->gpsEnabled_) &&
+                (gps_waiting(&this->gpsData_, 0)) &&
+-               (gps_read(&this->gpsData_) > 0) &&
++               (gps_read(&this->gpsData_, msg, 10) > 0) &&
+                (this->gpsData_.status != STATUS_NO_FIX) &&
+                (this->gpsData_.fix.mode == MODE_2D || this->gpsData_.fix.mode == MODE_3D) &&
+                (this->gpsData_.set & TIME_SET) &&

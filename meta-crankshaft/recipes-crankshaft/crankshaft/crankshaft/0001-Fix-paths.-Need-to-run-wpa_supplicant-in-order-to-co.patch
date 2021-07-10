@@ -1,0 +1,59 @@
+From d1f6722d80ef077799737ee622fc362f61a8a721 Mon Sep 17 00:00:00 2001
+From: Adrian Pop <pop.adrian61@gmail.com>
+Date: Thu, 18 Feb 2021 22:05:13 +0200
+Subject: [PATCH] Fix paths. Need to run wpa_supplicant in order to connect to
+ wifi network.
+
+---
+ .../03-crankshaft-base/files/lib/systemd/system/dhcpcd.service | 2 +-
+ .../03-crankshaft-base/files/opt/crankshaft/service_hotspot.sh | 2 ++
+ .../files/opt/crankshaft/service_wifisetup.sh                  | 3 +++
+ 3 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/stage3/03-crankshaft-base/files/lib/systemd/system/dhcpcd.service b/stage3/03-crankshaft-base/files/lib/systemd/system/dhcpcd.service
+index 822c351..7bd4fb9 100644
+--- a/stage3/03-crankshaft-base/files/lib/systemd/system/dhcpcd.service
++++ b/stage3/03-crankshaft-base/files/lib/systemd/system/dhcpcd.service
+@@ -8,7 +8,7 @@ Type=forking
+ PIDFile=/run/dhcpcd.pid
+ ExecStartPre=/opt/crankshaft/service_wifisetup.sh
+ ExecStart=/usr/lib/dhcpcd5/dhcpcd -q -b
+-ExecStop=/sbin/dhcpcd -x
++ExecStop=/usr/sbin/dhcpcd -x
+ 
+ [Install]
+ WantedBy=multi-user.target
+diff --git a/stage3/03-crankshaft-base/files/opt/crankshaft/service_hotspot.sh b/stage3/03-crankshaft-base/files/opt/crankshaft/service_hotspot.sh
+index dfc0052..70912d2 100755
+--- a/stage3/03-crankshaft-base/files/opt/crankshaft/service_hotspot.sh
++++ b/stage3/03-crankshaft-base/files/opt/crankshaft/service_hotspot.sh
+@@ -49,6 +49,7 @@ if [ $ENABLE_HOTSPOT -eq 1 ] || [ -f /tmp/manual_hotspot_control ]; then
+             sudo sysctl -w net.ipv4.ip_forward=1 > /dev/null 2>&1
+             # start services
+             echo "[${CYAN}${BOLD} INFO ${RESET}] Start dnsmasq" > /dev/tty3
++            sudo rm -f /tmp/dnsmasq.log
+             sudo systemctl start dnsmasq
+             echo "[${CYAN}${BOLD} INFO ${RESET}] Start hostapd" > /dev/tty3
+             sudo systemctl start hostapd
+@@ -127,6 +128,7 @@ if [ $ENABLE_HOTSPOT -eq 1 ] || [ -f /tmp/manual_hotspot_control ]; then
+                 sudo ip addr flush wlan0
+                 # restaret dhcpcd to bring up network
+                 sudo systemctl restart dhcpcd
++                sudo systemctl restart wpa_supplicant@wlan0.service
+                 sudo systemctl restart wpa-monitor
+                 echo "[${CYAN}${BOLD} INFO ${RESET}] Waiting for ip release..." > /dev/tty3
+                 log_echo "Waitin for ip release"
+diff --git a/stage3/03-crankshaft-base/files/opt/crankshaft/service_wifisetup.sh b/stage3/03-crankshaft-base/files/opt/crankshaft/service_wifisetup.sh
+index 74cc482..95de99b 100755
+--- a/stage3/03-crankshaft-base/files/opt/crankshaft/service_wifisetup.sh
++++ b/stage3/03-crankshaft-base/files/opt/crankshaft/service_wifisetup.sh
+@@ -86,6 +86,9 @@ else
+     sed -i 's/country=.*$/country='"${WIFI_COUNTRY}"'/' /tmp/wpa_supplicant.conf
+ fi
+ 
++rm -f /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
++ln -s /tmp/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
++
+ # disable wifi power management
+ iw wlan0 set power_save off
+ 
