@@ -24,6 +24,9 @@ QT_DEV = " \
 	qtbase-mkspecs \
 	qtdeclarative \
 	qtmultimedia \
+	qtquickcontrols \
+	qtquickcontrols-dev \
+	qtquickcontrols-mkspecs \
 	qtquickcontrols2 \
 	qtquickcontrols2-dev \
 	qtquickcontrols2-mkspecs \
