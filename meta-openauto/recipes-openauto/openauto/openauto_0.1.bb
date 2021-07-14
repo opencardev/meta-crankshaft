@@ -10,14 +10,18 @@ SRCREV = "yocto"
 DEPENDS += " aasdk pulseaudio gpsd taglib util-linux librtaudio qtbase qtconnectivity qtmultimedia"
 
 inherit cmake_qt5
-EXTRA_OECMAKE += '-DCMAKE_BUILD_TYPE=Release -DRPI3_BUILD=FALSE'
-
+EXTRA_OECMAKE += "
+    -DCMAKE_BUILD_TYPE=Release -DRPI3_BUILD=FALSE \
+    -DCMAKE_SKIP_INSTALL_RPATH=YES \
+    -DCMAKE_SKIP_RPATH=YES \
+"
  
 # this is a revision number that should be updated every time you alter this recipe
-PR = "r0" 
+PR = "r2" 
 
 # this indicates the folder to run do_compile from.
 S="${WORKDIR}/git"
 
 INSANE_SKIP_${PN} = "dev-deps"
+INSANE_SKIP_${PN} = "dev-elf"
 do_compile[progress] = "percent"
