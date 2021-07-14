@@ -10,8 +10,7 @@ SRCREV = "yocto"
 DEPENDS += " aasdk pulseaudio gpsd taglib util-linux librtaudio qtbase qtconnectivity qtmultimedia"
 
 inherit cmake_qt5
-EXTRA_OECMAKE += "
-    -DCMAKE_BUILD_TYPE=Release -DRPI3_BUILD=FALSE \
+EXTRA_OECMAKE += " -DCMAKE_BUILD_TYPE=Release -DRPI3_BUILD=FALSE \
     -DCMAKE_SKIP_INSTALL_RPATH=YES \
     -DCMAKE_SKIP_RPATH=YES \
 "
