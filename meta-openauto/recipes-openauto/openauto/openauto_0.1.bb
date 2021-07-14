@@ -16,11 +16,11 @@ EXTRA_OECMAKE += " -DCMAKE_BUILD_TYPE=Release -DRPI3_BUILD=FALSE \
 "
  
 # this is a revision number that should be updated every time you alter this recipe
-PR = "r2" 
+PR = "r3" 
 
 # this indicates the folder to run do_compile from.
 S="${WORKDIR}/git"
 
-INSANE_SKIP_${PN} = "dev-deps"
-INSANE_SKIP_${PN} = "dev-elf"
+INSANE_SKIP_${PN} += "dev-deps"
+INSANE_SKIP_${PN} += "dev-elf"
 do_compile[progress] = "percent"
