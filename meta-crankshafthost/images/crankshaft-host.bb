@@ -8,4 +8,4 @@ LICENSE = "MIT"
 
 IMAGE_BASENAME = "${MACHINE}_Crankshaft-Host-Image-Yocto"
 
-IMAGE_INSTALL_append = " crankshaft-host-packagegroup"
+IMAGE_INSTALL:append = " crankshaft-host-packagegroup"
