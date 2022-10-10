@@ -7,7 +7,7 @@ INSANE_SKIP_${PN} = "dev-deps"
 inherit packagegroup
 
 CORE_OS = " \
-    libinput-dev openssh openssh-keygen openssh-sftp-server \
+    libinput-dev openssh openssh-keygen openssh-sftp-server git \
 "
 
 WIFI_SUPPORT = " \
