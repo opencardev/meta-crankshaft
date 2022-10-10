@@ -1,0 +1,24 @@
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  ${HOME}/yocto/poky-hardknott/meta \
+  ${HOME}/yocto/poky-hardknott/meta-poky \
+  ${HOME}/yocto/poky-hardknott/meta-openembedded/meta-oe \
+  ${HOME}/yocto/poky-hardknott/meta-openembedded/meta-multimedia \
+  ${HOME}/yocto/poky-hardknott/meta-openembedded/meta-networking \
+  ${HOME}/yocto/poky-hardknott/meta-openembedded/meta-perl \
+  ${HOME}/yocto/poky-hardknott/meta-openembedded/meta-python \
+  ${HOME}/yocto/poky-hardknott/meta-openembedded/meta-filesystems \
+  ${HOME}/yocto/poky-hardknott/meta-openembedded/meta-gnome \
+  ${HOME}/yocto/poky-hardknott/meta-virtualization \
+  ${HOME}/yocto/poky-hardknott/meta-qt5 \
+  ${HOME}/yocto/poky-hardknott/meta-raspberrypi \
+  ${HOME}/yocto/poky-hardknott/meta-security \
+  ${HOME}/yocto/poky-hardknott/meta-opencardev/meta-openauto \
+  ${HOME}/yocto/poky-hardknott/meta-opencardev/meta-crankshaft \
+"
